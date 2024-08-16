@@ -10,7 +10,7 @@ public class AppUDP1 {
     	    DatagramSocket socket = new DatagramSocket(10000);
             System.out.println("[OK] ]");
             
-            String msg = "Olá!!!";
+            String msg = "Olá UDP 2!!!";
             
             byte[] msg_buf = msg.getBytes();
             int msg_size = msg_buf.length;
@@ -24,6 +24,19 @@ public class AppUDP1 {
             System.out.print("[ Enviando datagrama UDP  ..................  ");
             socket.send(pack);
             System.out.println("[OK] ]");
+            
+            System.out.print("[ Esperando recebimento de mensagem .............  ");
+            socket.receive(pack);
+            System.out.println("[OK] ]");
+            
+            byte[] received_data = pack.getData();
+            String received_msg = new String(received_data); 
+            InetAddress origin_address = pack.getAddress();
+            int origin_port = pack.getPort();
+            
+            System.out.println("  Mensagem:             "+received_msg);
+            System.out.println("  Endereço de origem:   "+origin_address.getHostAddress());
+            System.out.println("  Porta de origem:      "+origin_port);
 
         } catch (Exception e){
             System.out.println(e.getMessage());
